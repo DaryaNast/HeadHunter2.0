@@ -1,0 +1,9 @@
+.container {
+    margin: 0;
+    background-color: #FFFFFF;
+    padding: 14px 20px !important;
+    max-width: 1440px;
+    box-shadow:  rgba(0, 0, 0, 0.1) 0px 2px 10px;
+    height: 60px;
+    font-family: Open Sans, sans-serif;
+}

@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
-import { Group, Button, Text, Pill, PillsInput, Select, Box, Card } from "@mantine/core";
+import {Group, Text, Pill, PillsInput, Select, Box, Card, ActionIcon, Flex} from "@mantine/core";
 import { IconPlus, IconMapPin } from "@tabler/icons-react";
-import classes from "./SkillInput.module.css";
+import classes from "./VacancyFilters.module.css";
 
 interface VacancyFiltersProps {
-    onSearch: (text: string) => void;
     onAreaChange: (area: string) => void;
     onSkillsChange: (skills: string[]) => void;
     initialSkills?: string[];
 }
 
-export const SkillInput = ({
+export const VacancyFilters = ({
                                    onAreaChange,
                                    onSkillsChange,
                                    initialSkills = ['TypeScript', 'React', 'Redux']
@@ -51,26 +50,36 @@ export const SkillInput = ({
     };
 
     return (
-        <Box className={classes.filtersContainer}>
+        <Box className={classes.filtersContainer} >
             {/* Секция с фильтрами */}
-            <Group gap="md" align="flex-start" className={classes.filtersSection}>
-                {/* Блок ключевых навыков */}
-                <Card withBorder radius="md" padding="md" className={classes.skillsCard}>
+            <Group gap="md" align="flex-start" className={classes.filtersSection} >
+                {/* Блок навыков */}
+                <Card withBorder radius="md" padding="md" className={classes.skillsCard} w={317} p={24}>
                     <Text fw={500} size="sm" mb="xs">
                         Ключевые навыки
                     </Text>
-
-                    <PillsInput className={classes.skillsInput}>
-                        <Pill.Group>
-
+                    <Flex gap={8} pb={12} align='center'>
+                        <PillsInput size='xs' radius='md' w={227}>
                             <PillsInput.Field
                                 placeholder="Добавить навык..."
                                 value={newSkill}
                                 onChange={(e) => setNewSkill(e.target.value)}
                                 onKeyDown={handleKeyDown}
                             />
-                        </Pill.Group>
-                    </PillsInput>
+                        </PillsInput>
+
+                        <ActionIcon
+                            radius='md'
+                            variant='filled'
+                            w={34}
+                            h={30}
+                            onClick={handleAddSkill}
+                        >
+                            {<IconPlus size={26}/>}
+                        </ActionIcon>
+                    </Flex>
+
+                    <Pill.Group>
                     {skills.map((skill) => (
                         <Pill
                             key={skill}
@@ -81,20 +90,11 @@ export const SkillInput = ({
                             {skill}
                         </Pill>
                     ))}
-
-                    <Button
-                        variant="subtle"
-                        size="xs"
-                        leftSection={<IconPlus size={14} />}
-                        onClick={handleAddSkill}
-                        className={classes.addSkillButton}
-                    >
-                        Добавить навык
-                    </Button>
+                    </Pill.Group>
                 </Card>
 
                 {/* Блок выбора города */}
-                <Card withBorder radius="md" padding="md" className={classes.cityCard}>
+                <Card withBorder radius="md" padding="md" className={classes.cityCard} w={317} p={24}>
                     <Select
                         placeholder="Все города"
                         data={[

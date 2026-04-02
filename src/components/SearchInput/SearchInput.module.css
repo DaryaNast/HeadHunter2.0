@@ -1,0 +1,9 @@
+.searchInput {
+    border: 1px solid #0F0F1033;
+    width: 403px;
+    border-radius: 5px;
+}
+
+.filtersContainer {
+    padding-bottom: 48px;
+}

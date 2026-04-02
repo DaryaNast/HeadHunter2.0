@@ -7,10 +7,9 @@ export default defineConfig({
         environment: 'jsdom',
         setupFiles: ['./src/test/setup.ts'],
         globals: true,
-        environmentOptions: {
-            jsdom: {
-                resources: 'usable',
-            },
+        testTimeout: 10000,
+        deps: {
+            inline: ['@mantine/core', '@mantine/hooks'],
         },
     },
 });
