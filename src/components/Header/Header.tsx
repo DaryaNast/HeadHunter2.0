@@ -1,5 +1,5 @@
 import classes from "./Header.module.css";
-import {Avatar, Container, Group, Image, Title, Text, Indicator} from "@mantine/core";
+import {Avatar, Container, Group, Title, Text, Indicator } from "@mantine/core";
 
 export const Header = () => {
     return (
@@ -11,7 +11,7 @@ export const Header = () => {
                 justifyItems: 'start',
             }}>
                 <Group gap={10} wrap="nowrap">
-                    <Image src='../../../../public/iconHH.svg' width={30} height={30} />
+                    <img src='../../../../HeadHunter/src/assets/iconHH.svg' width={30} height={30} />
                     <Title size={16}>.FrontEnd</Title>
                 </Group>
 
