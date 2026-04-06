@@ -11,7 +11,7 @@ export const Header = () => {
                 justifyItems: 'start',
             }}>
                 <Group gap={10} wrap="nowrap">
-                    <img src='../../../../HeadHunter/src/assets/iconHH.svg' width={30} height={30} />
+                    <img src='../../assets/iconHH.svg' width={30} height={30} />
                     <Title size={16}>.FrontEnd</Title>
                 </Group>
 
