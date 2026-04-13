@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import {Group, Text, Pill, PillsInput, Select, Box, Card, ActionIcon, Flex} from "@mantine/core";
-import { IconPlus, IconMapPin } from "@tabler/icons-react";
+import {IconPlus, IconMapPin} from "@tabler/icons-react";
 import classes from "./VacancyFilters.module.css";
 
 interface VacancyFiltersProps {
-    onAreaChange: (area: string) => void;
-    onSkillsChange: (skills: string[]) => void;
-    initialSkills?: string[];
+    onAreaChange: (area: string) => void,
+    onSkillsChange: (skills: string[]) => void,
+    initialSkills?: string[],
+    initialArea?: string
 }
 
 export const VacancyFilters = ({
@@ -50,9 +51,9 @@ export const VacancyFilters = ({
     };
 
     return (
-        <Box className={classes.filtersContainer} >
+        <Box className={classes.filtersContainer}>
             {/* Секция с фильтрами */}
-            <Group gap="md" align="flex-start" className={classes.filtersSection} >
+            <Group gap="md" align="flex-start" className={classes.filtersSection}>
                 {/* Блок навыков */}
                 <Card withBorder radius="md" padding="md" className={classes.skillsCard} w={317} p={24}>
                     <Text fw={500} size="sm" mb="xs">
@@ -80,16 +81,16 @@ export const VacancyFilters = ({
                     </Flex>
 
                     <Pill.Group>
-                    {skills.map((skill) => (
-                        <Pill
-                            key={skill}
-                            withRemoveButton
-                            onRemove={() => handleRemoveSkill(skill)}
-                            size="md"
-                        >
-                            {skill}
-                        </Pill>
-                    ))}
+                        {skills.map((skill) => (
+                            <Pill
+                                key={skill}
+                                withRemoveButton
+                                onRemove={() => handleRemoveSkill(skill)}
+                                size="md"
+                            >
+                                {skill}
+                            </Pill>
+                        ))}
                     </Pill.Group>
                 </Card>
 
@@ -98,13 +99,13 @@ export const VacancyFilters = ({
                     <Select
                         placeholder="Все города"
                         data={[
-                            { value: '', label: 'Все города' },
-                            { value: '1', label: 'Москва' },
-                            { value: '2', label: 'Санкт-Петербург' },
+                            {value: '', label: 'Все города'},
+                            {value: '1', label: 'Москва'},
+                            {value: '2', label: 'Санкт-Петербург'},
                         ]}
                         value={selectedArea}
                         onChange={handleAreaSelect}
-                        leftSection={<IconMapPin size={16} />}
+                        leftSection={<IconMapPin size={16}/>}
                         clearable
                         className={classes.citySelect}
                     />

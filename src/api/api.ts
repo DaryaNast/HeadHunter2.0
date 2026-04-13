@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { VacanciesResponse, VacanciesParams } from "../types/types.ts";
+import type {VacanciesResponse, VacanciesParams, Vacancy} from "../types/types.ts";
 
 const BASE_URL = 'https://api.hh.ru/'
 
@@ -25,7 +25,11 @@ export const vacancyApi = createApi({
                 }
             })
         }),
+
+        getVacancyById: builder.query<Vacancy, string>({
+            query: (id) => `vacancies/${id}`
+        })
     })
 })
 
-export const { useGetVacanciesQuery } = vacancyApi;
+export const { useGetVacanciesQuery, useGetVacancyByIdQuery } = vacancyApi;

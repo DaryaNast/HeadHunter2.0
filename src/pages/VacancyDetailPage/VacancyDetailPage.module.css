@@ -1,0 +1,13 @@
+.card {
+    background-color: white;
+}
+
+.title {
+    color: #364FC7;
+    font-size: 1.75rem;
+}
+
+.description {
+    line-height: 1.6;
+    color: #333;
+}

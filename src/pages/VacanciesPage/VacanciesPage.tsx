@@ -1,0 +1,101 @@
+import { Container, Stack, Center, Pagination, Loader, Text, Box } from '@mantine/core';
+import { Header } from "../../components/Header/Header.tsx";
+import { SearchInput } from "../../components/SearchInput/SearchInput.tsx";
+import { VacancyFilters } from "../../components/VacancyFilters/VacancyFilters.tsx";
+import { VacancyCard } from "../../components/VacancyCard/VacancyCard.tsx";
+import { useGetVacanciesQuery } from "../../api/api.ts";
+import { useVacancyFilters } from "../../hooks/useVacancyFilters";
+import classes from './VacanciesPage.module.css';
+
+export function VacanciesPage() {
+    const {
+        params,
+        setSearchText,
+        setArea,
+        setSkills,
+        setPage,
+    } = useVacancyFilters();
+
+    const { data, isLoading, isError } = useGetVacanciesQuery(params);
+
+    const handleSearch = (text: string) => {
+        setSearchText(text);
+    }
+
+    const handleAreaChange = (area: string) => {
+        setArea(area);
+    }
+
+    const handleSkillsChange = (skills: string[]) => {
+        setSkills(skills);
+    };
+
+    const handlePageChange = (page: number) => {
+        setPage(page - 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    return (
+        <>
+            <Header />
+            <Container size="xl" className={classes.container} py="xl">
+                <SearchInput
+                    onSearch={handleSearch}
+                    initialValue={params.text || ''}
+                />
+                <div className={classes.filterCard}>
+                    <VacancyFilters
+                        onAreaChange={handleAreaChange}
+                        onSkillsChange={handleSkillsChange}
+                        initialSkills={params.skill_set || []}
+                        initialArea={params.area ? String(params.area) : ''}
+                    />
+
+                    <Box className={classes.contentWrapper}>
+                        <Box className={classes.vacanciesList}>
+                            {isLoading && (
+                                <Center mt="xl">
+                                    <Loader size="lg" />
+                                </Center>
+                            )}
+
+                            {isError && (
+                                <Center mt="xl">
+                                    <Text c="red">Ошибка при загрузке вакансий</Text>
+                                </Center>
+                            )}
+
+                            {data && data.items.length === 0 && !isLoading && (
+                                <Center mt="xl">
+                                    <Text>Ничего не найдено. Попробуйте изменить параметры поиска.</Text>
+                                </Center>
+                            )}
+
+                            {data && data.items.length > 0 && (
+                                <Stack gap="md">
+                                    {data.items.map((vacancy) => (
+                                        <VacancyCard key={vacancy.id} vacancy={vacancy} />
+                                    ))}
+                                </Stack>
+                            )}
+                        </Box>
+
+                        {data && data.pages > 1 && (
+                            <Box className={classes.paginationWrapper}>
+                                <Center>
+                                    <Pagination
+                                        total={data.pages}
+                                        value={params.page! + 1}
+                                        onChange={handlePageChange}
+                                        size="lg"
+                                        className={classes.pagination}
+                                    />
+                                </Center>
+                            </Box>
+                        )}
+                    </Box>
+                </div>
+            </Container>
+        </>
+    );
+}

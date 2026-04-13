@@ -22,6 +22,12 @@ export interface Vacancy {
         id: string;
         name: string;
     };
+    url?: string;
+    snippet?: {
+        requirement?: string;
+        responsibility?: string;
+    }
+    description?: string;
 }
 
 export interface Salary {
@@ -35,6 +41,11 @@ export interface VacanciesResponse {
     pages: number;
     page: number;
     per_page: number;
+    salary: Salary | null;
+    address: {
+        city: string;
+        id: string;
+    }
 }
 
 export interface VacanciesParams {

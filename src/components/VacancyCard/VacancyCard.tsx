@@ -1,6 +1,7 @@
 import {Card, Text, Button, Group, Title, Badge, Stack, Flex} from '@mantine/core';
 import type {Vacancy} from "../../types/types.ts";
 import classes from "./VacancyCard.module.css";
+import { Link } from "react-router-dom";
 
 interface VacancyCardProps {
     vacancy: Vacancy;
@@ -44,9 +45,11 @@ export const VacancyCard = ({vacancy}: VacancyCardProps) => {
     return (
         <Card withBorder padding={24} radius={12} className={classes.card}>
             <Stack>
-                <Title order={3} className={classes.vacancyTitle} c='#364FC7'>
-                    {vacancy.name}
-                </Title>
+                <Link to={`/vacancies/${vacancy.id}`} style={{ textDecoration: 'none' }}>
+                    <Title order={3} className={classes.vacancyTitle} c='#364FC7'>
+                        {vacancy.name}
+                    </Title>
+                </Link>
                 <Group>
                     <Text>{formatSalary()}</Text>
                     <Text c='#0F0F1080'>{vacancy.experience.name}</Text>

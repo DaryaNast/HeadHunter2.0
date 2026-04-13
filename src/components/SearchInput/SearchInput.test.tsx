@@ -11,7 +11,7 @@ describe('SearchInput', () => {
             <MantineProvider>
                 <SearchInput
                     onSearch={mockOnSearch}
-                    initialSearchText={initialSearchText}
+                    initialValue={initialSearchText}
                 />
             </MantineProvider>
         );

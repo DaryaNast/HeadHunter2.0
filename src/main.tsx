@@ -5,6 +5,7 @@ import App from './App.tsx'
 import {Provider} from "react-redux";
 import {store} from "./store/store.ts";
 import {MantineProvider, createTheme} from "@mantine/core";
+import {BrowserRouter} from "react-router-dom";
 
 const theme = createTheme({
     fontFamily: 'Open Sans, sans-serif',
@@ -14,10 +15,12 @@ const theme = createTheme({
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-      <MantineProvider theme={theme}>
-          <Provider store={store}>
-              <App />
-          </Provider>
-      </MantineProvider>
+      <BrowserRouter basename="/HeadHunter">
+          <MantineProvider theme={theme}>
+              <Provider store={store}>
+                  <App />
+              </Provider>
+          </MantineProvider>
+      </BrowserRouter>
   </StrictMode>,
 )

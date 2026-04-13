@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { Group, Button, Title, Text, Input, Box } from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
+import React, {useState} from "react";
+import {Group, Button, Title, Text, Input, Box} from "@mantine/core";
+import {IconSearch} from "@tabler/icons-react";
 import classes from "./SearchInput.module.css";
 
 interface SearchInputProps {
-    onSearch: (text: string) => void;
-    initialSearchText?: string;
+    onSearch: (text: string) => void,
+    initialValue?: string
 }
 
 export const SearchInput = ({
                                 onSearch,
-                                initialSearchText = "",
-                               }: SearchInputProps) => {
-    const [searchText, setSearchText] = useState(initialSearchText);
+                                initialValue = ""
+                            }: SearchInputProps) => {
+    const [searchText, setSearchText] = useState(initialValue);
 
     const handleSearchSubmit = () => {
         onSearch(searchText);
@@ -32,7 +32,7 @@ export const SearchInput = ({
                     <Title className={classes.mainTitle} size={26}>
                         Список вакансий
                     </Title>
-                    <Text c="dimmed" size='xl' className={classes.subtitle} >
+                    <Text c="dimmed" size='xl' className={classes.subtitle}>
                         по профессии Frontend-разработчик
                     </Text>
                 </Box>
@@ -40,7 +40,7 @@ export const SearchInput = ({
                 <Group gap="xs">
                     <Input
                         placeholder="Должность или название компании"
-                        leftSection={<IconSearch size={16} />}
+                        leftSection={<IconSearch size={16}/>}
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                         onKeyDown={handleKeyDown}
