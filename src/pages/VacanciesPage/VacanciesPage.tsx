@@ -6,24 +6,20 @@ import { VacancyCard } from "../../components/VacancyCard/VacancyCard.tsx";
 import { useGetVacanciesQuery } from "../../api/api.ts";
 import { useVacancyFilters } from "../../hooks/useVacancyFilters";
 import classes from './VacanciesPage.module.css';
+import {CityTabs} from "../../components/CityTabs/CityTabs.tsx";
 
 export function VacanciesPage() {
     const {
         params,
         setSearchText,
-        setArea,
         setSkills,
         setPage,
     } = useVacancyFilters();
 
-    const { data, isLoading, isError } = useGetVacanciesQuery(params);
+    const { data, isLoading } = useGetVacanciesQuery(params);
 
     const handleSearch = (text: string) => {
         setSearchText(text);
-    }
-
-    const handleAreaChange = (area: string) => {
-        setArea(area);
     }
 
     const handleSkillsChange = (skills: string[]) => {
@@ -39,31 +35,31 @@ export function VacanciesPage() {
         <>
             <Header />
             <Container size="xl" className={classes.container} py="xl">
+
                 <SearchInput
                     onSearch={handleSearch}
                     initialValue={params.text || ''}
                 />
                 <div className={classes.filterCard}>
                     <VacancyFilters
-                        onAreaChange={handleAreaChange}
                         onSkillsChange={handleSkillsChange}
                         initialSkills={params.skill_set || []}
-                        initialArea={params.area ? String(params.area) : ''}
                     />
 
                     <Box className={classes.contentWrapper}>
-                        <Box className={classes.vacanciesList}>
+                        <CityTabs />
+                        <Box className={classes.vacanciesList} pt={24}>
                             {isLoading && (
                                 <Center mt="xl">
                                     <Loader size="lg" />
                                 </Center>
                             )}
 
-                            {isError && (
-                                <Center mt="xl">
-                                    <Text c="red">Ошибка при загрузке вакансий</Text>
-                                </Center>
-                            )}
+                            {/*{isError && (*/}
+                            {/*    <Center mt="xl">*/}
+                            {/*        <Text c="red">Ошибка при загрузке вакансий</Text>*/}
+                            {/*    </Center>*/}
+                            {/*)}*/}
 
                             {data && data.items.length === 0 && !isLoading && (
                                 <Center mt="xl">

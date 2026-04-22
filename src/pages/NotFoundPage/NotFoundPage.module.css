@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    max-width: 707px;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-size: 2rem;
+    color: #333;
+    text-align: start;
+}
+
+.description {
+    max-width: 500px;
+    margin-bottom: 1rem;
+}

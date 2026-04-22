@@ -1,14 +1,17 @@
-import {useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Text, Title, Stack, Badge, Group, Button, Loader, Center } from '@mantine/core';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { useGetVacancyByIdQuery } from '../../api/api.ts';
 import { Header } from '../../components/Header/Header.tsx';
+import { NotFoundPage } from '../NotFoundPage/NotFoundPage.tsx';
 import classes from './VacancyDetailPage.module.css';
 
 export function VacancyDetailPage() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { data: vacancy, isLoading, isError } = useGetVacancyByIdQuery(id!);
+    const { data: vacancy, isLoading, isError, error } = useGetVacancyByIdQuery(id!);
+
+    const isNotFoundError = error && 'status' in error && error.status === 404;
 
     const getCity = () => {
         if (vacancy?.address?.city) {
@@ -31,7 +34,9 @@ export function VacancyDetailPage() {
     };
 
     const getScheduleBadge = () => {
-        switch (vacancy?.schedule.id) {
+        if (!vacancy?.schedule) return null;
+
+        switch (vacancy.schedule.id) {
             case 'remote':
                 return <Badge color="blue">Можно удалённо</Badge>;
             case 'fullDay':
@@ -39,7 +44,7 @@ export function VacancyDetailPage() {
             case 'hybrid':
                 return <Badge color="black">Гибрид</Badge>;
             default:
-                return null;
+                return <Badge color="gray">{vacancy.schedule.name}</Badge>;
         }
     }
 
@@ -66,6 +71,10 @@ export function VacancyDetailPage() {
         );
     }
 
+    if (isNotFoundError || (isError && !vacancy)) {
+        return <NotFoundPage />;
+    }
+
     if (isError || !vacancy) {
         return (
             <>
@@ -75,6 +84,7 @@ export function VacancyDetailPage() {
                         <Center>
                             <Stack align="center">
                                 <Text c="red" size="lg">Ошибка при загрузке вакансии</Text>
+                                <Text c="dimmed" size="sm">Пожалуйста, попробуйте позже</Text>
                                 <Button onClick={() => navigate('/vacancies')} variant="light">
                                     Вернуться к списку
                                 </Button>
@@ -98,37 +108,46 @@ export function VacancyDetailPage() {
                 >
                     Назад к вакансиям
                 </Button>
-                <Card mb="xl">
-                    <Title order={3} className={classes.vacancyTitle} c='#364FC7'>
+
+                <Card mb="xl" withBorder padding="xl" radius="md">
+                    <Title order={2} className={classes.vacancyTitle} c='#364FC7'>
                         {vacancy.name}
                     </Title>
 
-                    <Group>
-                        <Text>{formatSalary()}</Text>
-                        <Text c='#0F0F1080'>{vacancy.experience.name}</Text>
+                    <Group gap="md" mt="md">
+                        <Text size="xl" fw={600} c="green">
+                            {formatSalary()}
+                        </Text>
+                        <Text c="dimmed" size="lg">•</Text>
+                        <Text size="lg">
+                            {vacancy.experience?.name || 'Опыт не указан'}
+                        </Text>
                     </Group>
 
-                    <Stack gap={8}>
-                        <Text c='#0F0F1080'>{vacancy.employer.name}</Text>
+                    <Stack gap={8} mt="sm">
+                        <Text size="md" c='#0F0F1080'>
+                            {vacancy.employer?.name || 'Компания не указана'}
+                        </Text>
                         {getScheduleBadge()}
-                        <Text>{getCity()}</Text>
+                        <Text size="md">
+                            {getCity()}
+                        </Text>
                     </Stack>
-                    <Group justify="space-between" wrap="wrap">
+
+                    <Group justify="space-between" wrap="wrap" mt="lg">
                         <Button
                             component="a"
-                            href={ vacancy.url}
                             target="_blank"
                             rel="noopener noreferrer"
                             size="lg"
                             color="black"
-                            mt={16}
                         >
                             Откликнуться на hh.ru
                         </Button>
                     </Group>
                 </Card>
 
-                <Card radius="md">
+                <Card withBorder padding="xl" radius="md">
                     {vacancy.description && (
                         <Stack gap="md">
                             <Title order={3}>Описание вакансии</Title>
@@ -138,10 +157,9 @@ export function VacancyDetailPage() {
                         </Stack>
                     )}
 
-                    {/* Если нет description, проверяем snippet как запасной вариант */}
                     {!vacancy.description && (vacancy.snippet?.requirement || vacancy.snippet?.responsibility) && (
                         <Stack gap="md">
-                            <Title order={3}>Компания</Title>
+                            <Title order={3}>Описание вакансии</Title>
 
                             {vacancy.snippet?.requirement && (
                                 <Stack gap="xs">
@@ -160,6 +178,13 @@ export function VacancyDetailPage() {
                                     </Text>
                                 </Stack>
                             )}
+                        </Stack>
+                    )}
+
+                    {!vacancy.description && !vacancy.snippet?.requirement && !vacancy.snippet?.responsibility && (
+                        <Stack gap="md">
+                            <Title order={3}>Описание вакансии</Title>
+                            <Text c="dimmed">Описание отсутствует</Text>
                         </Stack>
                     )}
                 </Card>

@@ -15,7 +15,7 @@ const theme = createTheme({
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-      <BrowserRouter basename="/HeadHunter">
+      <BrowserRouter>
           <MantineProvider theme={theme}>
               <Provider store={store}>
                   <App />

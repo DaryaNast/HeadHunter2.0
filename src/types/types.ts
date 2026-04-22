@@ -6,7 +6,7 @@ export interface Vacancy {
         id: string;
         name: string;
     }
-    work_format: {
+    work_format?: {
         id: string;
         name: string;
     }

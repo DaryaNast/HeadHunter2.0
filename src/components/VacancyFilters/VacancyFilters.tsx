@@ -1,23 +1,19 @@
 import {useState, useEffect} from "react";
-import {Group, Text, Pill, PillsInput, Select, Box, Card, ActionIcon, Flex} from "@mantine/core";
-import {IconPlus, IconMapPin} from "@tabler/icons-react";
+import {Group, Text, Pill, PillsInput, Box, Card, ActionIcon, Flex} from "@mantine/core";
+import {IconPlus} from "@tabler/icons-react";
 import classes from "./VacancyFilters.module.css";
 
 interface VacancyFiltersProps {
-    onAreaChange: (area: string) => void,
     onSkillsChange: (skills: string[]) => void,
     initialSkills?: string[],
-    initialArea?: string
 }
 
 export const VacancyFilters = ({
-                                   onAreaChange,
                                    onSkillsChange,
                                    initialSkills = ['TypeScript', 'React', 'Redux']
                                }: VacancyFiltersProps) => {
     const [skills, setSkills] = useState<string[]>(initialSkills);
     const [newSkill, setNewSkill] = useState('');
-    const [selectedArea, setSelectedArea] = useState<string | null>(null);
 
     useEffect(() => {
         onSkillsChange(initialSkills);
@@ -43,11 +39,6 @@ export const VacancyFilters = ({
             e.preventDefault();
             handleAddSkill();
         }
-    };
-
-    const handleAreaSelect = (value: string | null) => {
-        setSelectedArea(value);
-        onAreaChange(value || '');
     };
 
     return (
@@ -95,21 +86,21 @@ export const VacancyFilters = ({
                 </Card>
 
                 {/* Блок выбора города */}
-                <Card withBorder radius="md" padding="md" className={classes.cityCard} w={317} p={24}>
-                    <Select
-                        placeholder="Все города"
-                        data={[
-                            {value: '', label: 'Все города'},
-                            {value: '1', label: 'Москва'},
-                            {value: '2', label: 'Санкт-Петербург'},
-                        ]}
-                        value={selectedArea}
-                        onChange={handleAreaSelect}
-                        leftSection={<IconMapPin size={16}/>}
-                        clearable
-                        className={classes.citySelect}
-                    />
-                </Card>
+                {/*<Card withBorder radius="md" padding="md" className={classes.cityCard} w={317} p={24}>*/}
+                {/*    <Select*/}
+                {/*        placeholder="Все города"*/}
+                {/*        data={[*/}
+                {/*            {value: '', label: 'Все города'},*/}
+                {/*            {value: '1', label: 'Москва'},*/}
+                {/*            {value: '2', label: 'Санкт-Петербург'},*/}
+                {/*        ]}*/}
+                {/*        value={selectedArea}*/}
+                {/*        onChange={handleAreaSelect}*/}
+                {/*        leftSection={<IconMapPin size={16}/>}*/}
+                {/*        clearable*/}
+                {/*        className={classes.citySelect}*/}
+                {/*    />*/}
+                {/*</Card>*/}
             </Group>
         </Box>
     );

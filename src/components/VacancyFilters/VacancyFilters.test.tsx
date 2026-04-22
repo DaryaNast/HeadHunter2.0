@@ -12,7 +12,6 @@ describe('VacancyFilters', () => {
         return render(
             <MantineProvider>
                 <VacancyFilters
-                    onAreaChange={mockOnAreaChange}
                     onSkillsChange={mockOnSkillsChange}
                     initialSkills={initialSkills}
                 />
