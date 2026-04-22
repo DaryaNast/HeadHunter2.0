@@ -6,4 +6,4 @@
 
 3. API: https://api.hh.ru/openapi/redoc#tag/Poisk-vakansij/operation/get-vacancies?industry=7&professional_role=96
 
-4. GH Pages: https://daryanast.github.io/HeadHunter/
+4. GH Pages: https://daryanast.github.io/HeadHunter2.0/
