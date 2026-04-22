@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/HeadHunter/',
+  base: '/HeadHunter2.0/',
   server: {
     proxy: {
       '/api': {
