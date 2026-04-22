@@ -1,6 +1,6 @@
 import classes from "./Header.module.css";
 import {Avatar, Container, Group, Title, Text, Indicator } from "@mantine/core";
-
+import imageHH from '../../../public/imageHH.png'
 
 export const Header = () => {
     return (
@@ -12,7 +12,7 @@ export const Header = () => {
                 justifyItems: 'start',
             }}>
                 <Group gap={10} wrap="nowrap">
-                    <img src='../../../public/imageHH.png' width={30} height={30} />
+                    <img src={imageHH} width={30} height={30} />
                     <Title size={16}>.FrontEnd</Title>
                 </Group>
 
