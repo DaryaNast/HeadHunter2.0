@@ -1,5 +1,4 @@
-import { Container, Stack, Center, Pagination, Loader, Text, Box } from '@mantine/core';
-import { Header } from "../../components/Header/Header.tsx";
+import { Stack, Center, Pagination, Loader, Text, Box } from '@mantine/core';
 import { SearchInput } from "../../components/SearchInput/SearchInput.tsx";
 import { VacancyFilters } from "../../components/VacancyFilters/VacancyFilters.tsx";
 import { VacancyCard } from "../../components/VacancyCard/VacancyCard.tsx";
@@ -33,33 +32,24 @@ export function VacanciesPage() {
 
     return (
         <>
-            <Header />
-            <Container size="xl" className={classes.container} py="xl">
-
-                <SearchInput
-                    onSearch={handleSearch}
-                    initialValue={params.text || ''}
+            <SearchInput
+                onSearch={handleSearch}
+                initialValue={params.text || ''}
+            />
+            <div className={classes.filterCard}>
+                <VacancyFilters
+                    onSkillsChange={handleSkillsChange}
+                    initialSkills={params.skill_set || []}
                 />
-                <div className={classes.filterCard}>
-                    <VacancyFilters
-                        onSkillsChange={handleSkillsChange}
-                        initialSkills={params.skill_set || []}
-                    />
 
-                    <Box className={classes.contentWrapper}>
-                        <CityTabs />
+                <Box className={classes.contentWrapper}>
+                    <CityTabs />
                         <Box className={classes.vacanciesList} pt={24}>
                             {isLoading && (
                                 <Center mt="xl">
                                     <Loader size="lg" />
                                 </Center>
                             )}
-
-                            {/*{isError && (*/}
-                            {/*    <Center mt="xl">*/}
-                            {/*        <Text c="red">Ошибка при загрузке вакансий</Text>*/}
-                            {/*    </Center>*/}
-                            {/*)}*/}
 
                             {data && data.items.length === 0 && !isLoading && (
                                 <Center mt="xl">
@@ -91,7 +81,6 @@ export function VacanciesPage() {
                         )}
                     </Box>
                 </div>
-            </Container>
         </>
     );
 }

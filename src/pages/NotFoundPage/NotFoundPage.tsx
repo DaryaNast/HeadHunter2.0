@@ -1,6 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {Header} from "../../components/Header/Header.tsx";
-import {Button, Container, Group, Title, Text, Card} from "@mantine/core";
+import {Button, Group, Title, Text, Card} from "@mantine/core";
 import classes from './NotFoundPage.module.css'
 
 export function NotFoundPage() {
@@ -8,8 +7,6 @@ export function NotFoundPage() {
 
     return (
         <>
-            <Header/>
-            <Container size="md" py="xl">
                 <Card className={classes.card} radius='md'>
                     <Group display='flex' wrap='nowrap'>
                         <Group w={508}>
@@ -39,7 +36,6 @@ export function NotFoundPage() {
                         Scroll GIF</a>from <a href="https://tenor.com/search/dog-gifs">Dog GIFs</a></div>
                     <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
                 </Card>
-            </Container>
         </>
     )
 }

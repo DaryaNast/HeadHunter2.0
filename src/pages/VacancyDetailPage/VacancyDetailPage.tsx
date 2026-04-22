@@ -1,8 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Card, Text, Title, Stack, Badge, Group, Button, Loader, Center } from '@mantine/core';
+import { Card, Text, Title, Stack, Badge, Group, Button, Loader, Center } from '@mantine/core';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { useGetVacancyByIdQuery } from '../../api/api.ts';
-import { Header } from '../../components/Header/Header.tsx';
 import { NotFoundPage } from '../NotFoundPage/NotFoundPage.tsx';
 import classes from './VacancyDetailPage.module.css';
 
@@ -63,7 +62,6 @@ export function VacancyDetailPage() {
     if (isLoading) {
         return (
             <>
-                <Header />
                 <Center h="70vh">
                     <Loader size="xl" />
                 </Center>
@@ -78,8 +76,6 @@ export function VacancyDetailPage() {
     if (isError || !vacancy) {
         return (
             <>
-                <Header />
-                <Container size="md" py="xl">
                     <Card withBorder padding="xl" radius="md">
                         <Center>
                             <Stack align="center">
@@ -91,15 +87,12 @@ export function VacancyDetailPage() {
                             </Stack>
                         </Center>
                     </Card>
-                </Container>
             </>
         );
     }
 
     return (
         <>
-            <Header />
-            <Container size="md" py="xl">
                 <Button
                     variant="subtle"
                     leftSection={<IconArrowLeft size={20} />}
@@ -188,7 +181,6 @@ export function VacancyDetailPage() {
                         </Stack>
                     )}
                 </Card>
-            </Container>
         </>
     );
 }
